@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Supervisors</h1>
+
+Note how the documented way of sorting doesn't actually work.
+The sorting works exactly the same way as search does,
+by specifying the relation name, underscore, attribute.
+
+In the case of sorting by the has_many :employees - I'm not sure exactly how that makes sense.
+Which employee are you sorting by?
+
+<table>
+  <thead>
+    <tr>
+      <th><%= sort_link @q, :last_name %></th>
+      <th><%= sort_link @q, 'departments.title', 'Title as Documented' %></th>
+      <th><%= sort_link @q, 'department_title', 'Title as actually works' %></th>
+      <th><%= sort_link @q, 'employees.last_name', 'Employees as Documented' %></th>
+      <th><%= sort_link @q, 'employees_last_name', 'Employees as actually works' %></th>
+
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @supervisors.each do |supervisor| %>
+      <tr>
+        <td><%= supervisor.last_name %></td>
+        <td><%= supervisor.department %></td>
+        <td><%= supervisor.department %></td>
+        <td><%= supervisor.employees.join('|') %></td>
+        <td><%= supervisor.employees.join('|') %></td>
+
+        <td><%= link_to 'Show', supervisor %></td>
+        <td><%= link_to 'Edit', edit_supervisor_path(supervisor) %></td>
+        <td><%= link_to 'Destroy', supervisor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Supervisor', new_supervisor_path %>
